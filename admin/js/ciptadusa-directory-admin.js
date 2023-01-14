@@ -77,7 +77,7 @@
         $("#downloadTemplate").click(function () {
             // 	Is Premium,Exhibitor Name,Logo URL,Banner Logo URL,Country,Stand,Facebook URL,Instagram URL,Twitter URL,Linkedin  URL,Company URL,Company Phone,Address,Gallery Image 1,Gallery Image 2,Gallery Title 1,Gallery Title 2
             let rows = [
-                ['Is Premium', 'Description', 'Product Category', 'Exhibitor Name', 'Logo URL', 'Banner Logo URL', 'Country', 'Stand', 'Facebook URL', 'Instagram URL', 'Twitter URL', 'Linkedin  URL', 'Company URL', 'Company Phone', 'Address', 'Gallery Image 1', 'Gallery Image 2', 'Gallery Title 1', 'Gallery Title 2'],
+                ['Is Premium', 'Description', 'Industry Category', 'Exhibitor Name', 'Logo URL', 'Banner Logo URL', 'Country', 'Stand', 'Facebook URL', 'Instagram URL', 'Twitter URL', 'Linkedin  URL', 'Company URL', 'Company Phone', 'Address', 'Gallery Image 1', 'Gallery Image 2', 'Gallery Title 1', 'Gallery Title 2'],
                 [1, 'Deskripsi Company', 'IT Support', 'PT Cipta Dua Saudara', 'https://dummyimage.com/600x400/000/fff', 'https://dummyimage.com/600x400/000/fff', 'Indonesian', 'A0001', '#', '#', '#', '#', '#', '628996926184', 'DKI Jakarta', 'https://dummyimage.com/600x400/000/fff', 'https://dummyimage.com/600x400/000/fff', 'Judul 1', 'Judul 2']
             ];
             exportToCsv('template.csv', rows);

@@ -175,22 +175,22 @@ class Ciptadusa_Directory_Admin {
 	}
 
 	/*
-	 * Register new post type product_category
+	 * Register new post type industry_category
 	 */
 
 	public function init_product_categories() {
 
 		$labels = array(
-			'name'              => _x( 'Product Categories', 'taxonomy general name', 'ciptadusa-directory' ),
-			'singular_name'     => _x( 'Product Category', 'taxonomy singular name', 'ciptadusa-directory' ),
-			'search_items'      => __( 'Search Product Categories', 'ciptadusa-directory' ),
-			'all_items'         => __( 'All Product Categories', 'ciptadusa-directory' ),
-			'parent_item'       => __( 'Parent Product Category', 'ciptadusa-directory' ),
-			'parent_item_colon' => __( 'Parent Product Category:', 'ciptadusa-directory' ),
-			'edit_item'         => __( 'Edit Product Category', 'ciptadusa-directory' ),
-			'update_item'       => __( 'Update Product Category', 'ciptadusa-directory' ),
-			'add_new_item'      => __( 'Add New Product Category', 'ciptadusa-directory' ),
-			'new_item_name'     => __( 'New Product Category Name', 'ciptadusa-directory' ),
+			'name'              => _x( 'Industry Categories', 'taxonomy general name', 'ciptadusa-directory' ),
+			'singular_name'     => _x( 'Industry Category', 'taxonomy singular name', 'ciptadusa-directory' ),
+			'search_items'      => __( 'Search Industry Categories', 'ciptadusa-directory' ),
+			'all_items'         => __( 'All Industry Categories', 'ciptadusa-directory' ),
+			'parent_item'       => __( 'Parent Industry Category', 'ciptadusa-directory' ),
+			'parent_item_colon' => __( 'Parent Industry Category:', 'ciptadusa-directory' ),
+			'edit_item'         => __( 'Edit Industry Category', 'ciptadusa-directory' ),
+			'update_item'       => __( 'Update Industry Category', 'ciptadusa-directory' ),
+			'add_new_item'      => __( 'Add New Industry Category', 'ciptadusa-directory' ),
+			'new_item_name'     => __( 'New Industry Category Name', 'ciptadusa-directory' ),
 			'menu_name'         => __( 'Product Category', 'ciptadusa-directory' ),
 		);
 
@@ -200,10 +200,10 @@ class Ciptadusa_Directory_Admin {
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'query_var'         => true,
-			'rewrite'           => array( 'slug' => 'product_category' ),
+			'rewrite'           => array( 'slug' => 'industry_category' ),
 		);
 
-		register_taxonomy( 'product_category', array( 'ciptadusa_directory' ), $args );
+		register_taxonomy( 'industry_category', array( 'ciptadusa_directory' ), $args );
 
 	}
 
@@ -241,7 +241,7 @@ class Ciptadusa_Directory_Admin {
 			'banner_logo',
 			'description',
 			'country',
-			'product_category',
+			'industry_category',
 			'stand',
 			'fb_url',
 			'ig_url',

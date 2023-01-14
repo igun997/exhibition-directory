@@ -16,7 +16,7 @@ $current_path = $_SERVER['REQUEST_URI'];
 $fields       = [
 	'is_premium',
 	'description',
-	'product_category',
+	'industry_category',
 	'exhibitor_name',
 	'logo',
 	'banner_logo',
@@ -63,14 +63,14 @@ if ( isset( $_POST['submit'] ) ) {
 		$success = true;
 		//create taxonomy by product category
 		$term_id = null;
-		$term    = term_exists( $value['product_category'], 'product_category' );
+		$term    = term_exists( $value['industry_category'], 'industry_category' );
 		if ( $term === 0 || $term === null ) {
 			$term    = wp_insert_term(
-				$value['product_category'],
-				'product_category',
+				$value['industry_category'],
+				'industry_category',
 				[
-					'description' => $value['product_category'],
-					'slug'        => $value['product_category'],
+					'description' => $value['industry_category'],
+					'slug'        => $value['industry_category'],
 				]
 			);
 			$term_id = $term['term_id'];
@@ -85,7 +85,7 @@ if ( isset( $_POST['submit'] ) ) {
 				'post_status'  => 'publish',
 				'post_type'    => 'ciptadusa_directory',
 				'tax_input'    => [
-					'product_category' => $term_id,
+					'industry_category' => $term_id,
 				],
 			]
 		);
