@@ -163,6 +163,8 @@ class Ciptadusa_Directory {
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_meta_boxes' );
 		// save custom_fields
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_meta_box' );
+		// add rest api
+		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'add_custom_fields_to_rest_api' );
 
 	}
 

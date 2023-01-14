@@ -155,6 +155,7 @@ class Ciptadusa_Directory_Admin {
 					'singular_name' => __( 'Directory', 'ciptadusa-directory' ),
 				],
 				'public'        => true,
+				'show_in_rest'  => true,
 				'can_export'    => true,
 				'has_archive'   => true,
 				'supports'      => [ 'title', 'editor', 'thumbnail' ],
@@ -198,6 +199,8 @@ class Ciptadusa_Directory_Admin {
 			'hierarchical'      => true,
 			'labels'            => $labels,
 			'show_ui'           => true,
+			'show_in_rest'      => true,
+			'public'            => true,
 			'show_admin_column' => true,
 			'query_var'         => true,
 			'rewrite'           => array( 'slug' => 'industry_category' ),
@@ -225,7 +228,6 @@ class Ciptadusa_Directory_Admin {
 	public function render_meta_box_content( $post ) {
 		$postId = $post->ID;
 		$meta   = get_post_custom( $postId );
-//		echo '<pre>' . json_encode( $meta ) . '</pre>';
 		include_once 'partials/ciptadusa-meta-section.php';
 	}
 
@@ -267,6 +269,138 @@ class Ciptadusa_Directory_Admin {
 			}
 		}
 
+	}
+
+
+	/**
+	 * Show custom fields on rest api
+	 */
+
+	public function add_custom_fields_to_rest_api() {
+
+		register_rest_field( 'ciptadusa_directory', 'exhibitor_name', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'logo', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'is_premium', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'banner_logo', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'description', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'country', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'industry_category', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'stand', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'fb_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'ig_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'twitter_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'yt_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'linkedln_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'company_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'company_phone', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'address', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'gallery_image_1', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'gallery_image_2', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'gallery_title_1', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+		register_rest_field( 'ciptadusa_directory', 'gallery_title_2', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+	}
+
+	public function get_custom_fields( $object, $field_name, $request ) {
+		return get_post_meta( $object['id'], $field_name, true );
 	}
 
 }
