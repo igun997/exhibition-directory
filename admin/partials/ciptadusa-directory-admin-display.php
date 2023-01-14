@@ -62,10 +62,10 @@ if ( isset( $_POST['submit'] ) ) {
 	foreach ( $fieldWithValues as $key => $value ) {
 		$success = true;
 		//create taxonomy by product category
-		$term_id = null;
-		$term    = term_exists( $value['industry_category'], 'industry_category' );
+		$industry_id = null;
+		$term        = term_exists( $value['industry_category'], 'industry_category' );
 		if ( $term === 0 || $term === null ) {
-			$term    = wp_insert_term(
+			$term        = wp_insert_term(
 				$value['industry_category'],
 				'industry_category',
 				[
@@ -73,9 +73,25 @@ if ( isset( $_POST['submit'] ) ) {
 					'slug'        => $value['industry_category'],
 				]
 			);
-			$term_id = $term['term_id'];
+			$industry_id = $term['term_id'];
 		} else {
-			$term_id = $term['term_id'];
+			$industry_id = $term['term_id'];
+		}
+		//check if country taxonomy exist
+		$country_id = null;
+		$term       = term_exists( $value['country'], 'country' );
+		if ( $term === 0 || $term === null ) {
+			$term       = wp_insert_term(
+				$value['country'],
+				'country',
+				[
+					'description' => $value['country'],
+					'slug'        => $value['country'],
+				]
+			);
+			$country_id = $term['term_id'];
+		} else {
+			$country_id = $term['term_id'];
 		}
 		// create post and include taxonomy
 		$post_id = wp_insert_post(
@@ -85,7 +101,8 @@ if ( isset( $_POST['submit'] ) ) {
 				'post_status'  => 'publish',
 				'post_type'    => 'ciptadusa_directory',
 				'tax_input'    => [
-					'industry_category' => $term_id,
+					'industry_category' => $industry_id,
+					'country'           => $country_id,
 				],
 			]
 		);

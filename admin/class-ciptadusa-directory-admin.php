@@ -124,7 +124,8 @@ class Ciptadusa_Directory_Admin {
 
 	/**
 	 * Render the settings page for this plugin.
-	 *
+	 * @return    void
+	 * @since    1.0.0
 	 */
 
 	public function display_plugin_setup_page() {
@@ -142,8 +143,10 @@ class Ciptadusa_Directory_Admin {
 	}
 
 
-	/*
+	/**
 	 * Register new post type
+	 * @return void
+	 * @since 1.0.0
 	 */
 
 	public function init_types() {
@@ -175,8 +178,10 @@ class Ciptadusa_Directory_Admin {
 		);
 	}
 
-	/*
+	/**
 	 * Register new post type industry_category
+	 * @return void
+	 * @since 1.0.0
 	 */
 
 	public function init_product_categories() {
@@ -210,8 +215,9 @@ class Ciptadusa_Directory_Admin {
 
 	}
 
-	/*
+	/**
 	 * Custom Fields for Directory
+	 * @return array
 	 */
 
 	public function add_meta_boxes() {
@@ -225,14 +231,23 @@ class Ciptadusa_Directory_Admin {
 		);
 	}
 
+	/**
+	 * Render Meta Box content.
+	 *
+	 * @param $post
+	 *
+	 * @return void
+	 */
 	public function render_meta_box_content( $post ) {
 		$postId = $post->ID;
 		$meta   = get_post_custom( $postId );
 		include_once 'partials/ciptadusa-meta-section.php';
 	}
 
-	/*
+	/**
 	 * Save Custom Fields for Directory
+	 *
+	 * @param $post_id
 	 */
 
 	public function save_meta_box( $post_id ) {
@@ -242,7 +257,6 @@ class Ciptadusa_Directory_Admin {
 			'is_premium',
 			'banner_logo',
 			'description',
-			'country',
 			'industry_category',
 			'stand',
 			'fb_url',
@@ -308,11 +322,6 @@ class Ciptadusa_Directory_Admin {
 			'schema'          => null,
 		) );
 
-		register_rest_field( 'ciptadusa_directory', 'country', array(
-			'get_callback'    => array( $this, 'get_custom_fields' ),
-			'update_callback' => null,
-			'schema'          => null,
-		) );
 
 		register_rest_field( 'ciptadusa_directory', 'industry_category', array(
 			'get_callback'    => array( $this, 'get_custom_fields' ),
@@ -399,8 +408,50 @@ class Ciptadusa_Directory_Admin {
 		) );
 	}
 
+	/**
+	 * Get custom fields.
+	 *
+	 * @param array $object Details of current post.
+	 * @param string $field_name Name of field.
+	 *
+	 * @return mixed
+	 */
+
 	public function get_custom_fields( $object, $field_name, $request ) {
 		return get_post_meta( $object['id'], $field_name, true );
+	}
+
+	/**
+	 * Register new taxonomy name Countries for post type ciptadusa_directory.
+	 * @return void
+	 * @since 1.0.0
+	 */
+
+	public function init_taxonomy_countries() {
+		$labels = array(
+			'name'              => _x( 'Countries', 'taxonomy general name', 'ciptadusa-directory' ),
+			'singular_name'     => _x( 'Country', 'taxonomy singular name', 'ciptadusa-directory' ),
+			'search_items'      => __( 'Search Countries', 'ciptadusa-directory' ),
+			'all_items'         => __( 'All Countries', 'ciptadusa-directory' ),
+			'parent_item'       => __( 'Parent Country', 'ciptadusa-directory' ),
+			'parent_item_colon' => __( 'Parent Country:', 'ciptadusa-directory' ),
+			'edit_item'         => __( 'Edit Country', 'ciptadusa-directory' ),
+			'update_item'       => __( 'Update Country', 'ciptadusa-directory' ),
+			'add_new_item'      => __( 'Add New Country', 'ciptadusa-directory' ),
+			'new_item_name'     => __( 'New Country Name', 'ciptadusa-directory' ),
+			'menu_name'         => __( 'Country', 'ciptadusa-directory' ),
+		);
+		$args   = array(
+			'hierarchical'      => true,
+			'labels'            => $labels,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'query_var'         => true,
+			'rewrite'           => array( 'slug' => 'country' ),
+			'show_in_rest'      => true,
+			'public'            => true,
+		);
+		register_taxonomy( 'country', array( 'ciptadusa_directory' ), $args );
 	}
 
 }
