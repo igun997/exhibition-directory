@@ -204,11 +204,11 @@ class Ciptadusa_Directory_Admin {
 			'hierarchical'      => true,
 			'labels'            => $labels,
 			'show_ui'           => true,
-			'show_in_rest'      => true,
-			'public'            => true,
 			'show_admin_column' => true,
 			'query_var'         => true,
 			'rewrite'           => array( 'slug' => 'industry_category' ),
+			'show_in_rest'      => true,
+			'public'            => true,
 		);
 
 		register_taxonomy( 'industry_category', array( 'ciptadusa_directory' ), $args );
@@ -322,12 +322,6 @@ class Ciptadusa_Directory_Admin {
 			'schema'          => null,
 		) );
 
-
-		register_rest_field( 'ciptadusa_directory', 'industry_category', array(
-			'get_callback'    => array( $this, 'get_custom_fields' ),
-			'update_callback' => null,
-			'schema'          => null,
-		) );
 
 		register_rest_field( 'ciptadusa_directory', 'stand', array(
 			'get_callback'    => array( $this, 'get_custom_fields' ),
@@ -452,6 +446,16 @@ class Ciptadusa_Directory_Admin {
 			'public'            => true,
 		);
 		register_taxonomy( 'country', array( 'ciptadusa_directory' ), $args );
+	}
+
+	/**
+	 * Register new orderby is_premium for post type ciptadusa_directory.
+	 */
+
+	public function init_orderby_is_premium( $params ) {
+		$params['orderby']['enum'][] = 'is_premium';
+
+		return $params;
 	}
 
 }

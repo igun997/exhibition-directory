@@ -167,7 +167,8 @@ class Ciptadusa_Directory {
 		$this->loader->add_action( 'save_post', $plugin_admin, 'save_meta_box' );
 		// add rest api
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'add_custom_fields_to_rest_api' );
-		// add country taxonomy
+		// add new order by
+		$this->loader->add_filter( 'rest_ciptadusa_directory_collection_params', $plugin_admin, 'init_orderby_is_premium' );
 
 	}
 
