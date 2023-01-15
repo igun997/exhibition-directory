@@ -35,7 +35,13 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CIPTADUSA_DIRECTORY_VERSION', '1.1.0' );
+define( 'CIPTADUSA_DIRECTORY_VERSION', '1.1.1' );
+
+/**
+ * Define plugin for WordPress version
+ */
+
+define( 'CIPTADUSA_DIRECTORY_WP_VERSION', '6.1.1' );
 
 /**
  * The code that runs during plugin activation.
