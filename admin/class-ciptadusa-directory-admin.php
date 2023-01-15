@@ -372,11 +372,6 @@ class Ciptadusa_Directory_Admin {
 			'schema'          => null,
 		) );
 
-		register_rest_field( 'ciptadusa_directory', 'company_phone', array(
-			'get_callback'    => array( $this, 'get_custom_fields' ),
-			'update_callback' => null,
-			'schema'          => null,
-		) );
 
 		register_rest_field( 'ciptadusa_directory', 'company_email', array(
 			'get_callback'    => array( $this, 'get_custom_fields' ),

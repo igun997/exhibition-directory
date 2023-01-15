@@ -117,7 +117,7 @@ function getValues( $key ) {
             </div>
             <div class="col-6">
                 <input type="text" name="ig_url"
-                       value="<?= getValues( 'ug_url' ) ?>" class="form-control">
+                       value="<?= getValues( 'ig_url' ) ?>" class="form-control">
             </div>
         </div>
     </div>
