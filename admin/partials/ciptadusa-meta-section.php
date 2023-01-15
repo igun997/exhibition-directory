@@ -80,11 +80,11 @@ function getValues( $key ) {
     <div class="col-12 m-2">
         <div class="row align-items-center">
             <div class="col-6">
-                <label class="font-weight-bold">Instagram URL</label>
+                <label class="font-weight-bold">Youtube URL</label>
             </div>
             <div class="col-6">
-                <input type="text" name="ig_url"
-                       value="<?= getValues( 'ig_url' ) ?>" class="form-control">
+                <input type="text" name="yt_url"
+                       value="<?= getValues( 'yt_url' ) ?>" class="form-control">
             </div>
         </div>
     </div>
@@ -107,6 +107,17 @@ function getValues( $key ) {
             <div class="col-6">
                 <input type="text" name="yt_url"
                        value="<?= getValues( 'yt_url' ) ?>" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="col-12 m-2">
+        <div class="row align-items-center">
+            <div class="col-6">
+                <label class="font-weight-bold">Instagram URL</label>
+            </div>
+            <div class="col-6">
+                <input type="text" name="ig_url"
+                       value="<?= getValues( 'ug_url' ) ?>" class="form-control">
             </div>
         </div>
     </div>

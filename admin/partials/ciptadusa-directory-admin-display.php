@@ -23,6 +23,7 @@ $fields       = [
 	'country',
 	'stand',
 	'fb_url',
+	'yt_url',
 	'ig_url',
 	'twitter_url',
 	'linkedln_url',

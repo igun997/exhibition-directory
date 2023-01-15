@@ -260,9 +260,9 @@ class Ciptadusa_Directory_Admin {
 			'industry_category',
 			'stand',
 			'fb_url',
+			'yt_url',
 			'ig_url',
 			'twitter_url',
-			'yt_url',
 			'linkedln_url',
 			'company_url',
 			'company_phone',
@@ -348,6 +348,13 @@ class Ciptadusa_Directory_Admin {
 		) );
 
 		register_rest_field( 'ciptadusa_directory', 'yt_url', array(
+			'get_callback'    => array( $this, 'get_custom_fields' ),
+			'update_callback' => null,
+			'schema'          => null,
+		) );
+
+
+		register_rest_field( 'ciptadusa_directory', 'ig_url', array(
 			'get_callback'    => array( $this, 'get_custom_fields' ),
 			'update_callback' => null,
 			'schema'          => null,
