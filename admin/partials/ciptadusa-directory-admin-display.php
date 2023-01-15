@@ -28,6 +28,7 @@ $fields       = [
 	'linkedln_url',
 	'company_url',
 	'company_phone',
+	'company_email',
 	'address',
 	'gallery_image_1',
 	'gallery_image_2',

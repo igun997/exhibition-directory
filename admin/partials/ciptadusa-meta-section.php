@@ -146,6 +146,17 @@ function getValues( $key ) {
     <div class="col-12 m-2">
         <div class="row align-items-center">
             <div class="col-6">
+                <label class="font-weight-bold">Company Email</label>
+            </div>
+            <div class="col-6">
+                <input type="text" name="company_email"
+                       value="<?= getValues( 'company_email' ) ?>" class="form-control"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 m-2">
+        <div class="row align-items-center">
+            <div class="col-6">
                 <label class="font-weight-bold">Address</label>
             </div>
             <div class="col-6">
