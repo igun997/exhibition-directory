@@ -16,7 +16,7 @@
  * Plugin Name:       Directory Listing by Cipta Dua Saudara
  * Plugin URI:        https://www.ciptadusa.com
  * Description:       Exhibition Directory Listing
- * Version:           1.1.0
+ * Version:           1.1.2
  * Author:            Indra Gunanda
  * Author URI:        https://github.com/igun997
  * License:           GPL-2.0+
