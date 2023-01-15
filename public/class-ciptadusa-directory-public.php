@@ -27,7 +27,7 @@ class Ciptadusa_Directory_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,21 +36,22 @@ class Ciptadusa_Directory_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -96,8 +97,26 @@ class Ciptadusa_Directory_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ciptadusa-directory-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ciptadusa-directory-public.js', [], $this->version, false );
 
+	}
+
+	/**
+	 * Register the exhibitor js set deffer.
+	 */
+
+	public function add_defer_attribute() {
+		wp_print_script_tag( [
+			'id'    => 'chunk-exhibitor',
+			'src'   => plugin_dir_url( __FILE__ ) . 'js/787.a4bfd92e.chunk.js',
+			'defer' => true,
+		] );
+
+		wp_print_script_tag( [
+			'id'    => 'main-exhibitor',
+			'src'   => plugin_dir_url( __FILE__ ) . 'js/main.bb33cff6.js',
+			'defer' => true,
+		] );
 	}
 
 }
