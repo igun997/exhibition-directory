@@ -40,8 +40,10 @@ $fields       = [
 if ( isset( $_POST['submit'] ) ) {
 	$csv_file = $_FILES['file']['tmp_name'];
 	$csv_file = file_get_contents( $csv_file );
-	// csv to array
-	$csv_array = array_map( 'str_getcsv', explode( PHP_EOL, $csv_file ) );
+	// csv semicolon to array
+	$csv_array = array_map( function () use ( $csv_file ) {
+		return str_getcsv( $csv_file, ';' );
+	}, explode( PHP_EOL, $csv_file ) );
 	$csv_file  = array_filter( $csv_array );
 	// unset first row
 	unset( $csv_file[0] );
