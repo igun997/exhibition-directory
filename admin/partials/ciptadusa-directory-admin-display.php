@@ -161,7 +161,7 @@ if ( isset( $_POST['submit'] ) ) {
                         <div class="form-group">
                             <label for="file">File</label>
                             <input type="file" class="form-control-file" id="file" name="file" required
-                                   accept="text/csv">
+                                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
                         </div>
                         <div class="form-group">
                             <button name="submit" type="submit" class="btn btn-success btn-block">
