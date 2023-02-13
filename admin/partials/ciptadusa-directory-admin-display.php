@@ -12,6 +12,9 @@
  * @subpackage Ciptadusa_Directory/admin/partials
  */
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 $current_path = $_SERVER['REQUEST_URI'];
 $fields       = [
 	'is_premium',
@@ -38,89 +41,90 @@ $fields       = [
 ];
 // read csv file from post and convert to array
 if ( isset( $_POST['submit'] ) ) {
-	$csv_file = $_FILES['file']['tmp_name'];
-	$csv_file = file_get_contents( $csv_file );
-	// csv semicolon to array
-	$csv_array = array_map( function ( $item ) {
-		return str_getcsv( $item, ';' );
-	}, explode( PHP_EOL, $csv_file ) );
-	$csv_file  = array_filter( $csv_array );
-	// unset first row
-	unset( $csv_file[0] );
-	// normalize array
-	$csv_file = array_values( $csv_file );
-	// loop through array
-	$fieldWithValues = [];
-	foreach ( $csv_file as $key => $value ) {
-		$fieldWithValues[ $key ] = [];
-		foreach ( $value as $k => $v ) {
-			if ( $v === null ) {
-				break;
-			}
-			$fieldWithValues[ $key ][ $fields[ $k ] ] = $v;
-		}
-	}
-	// remove empty array
-	$fieldWithValues = array_filter( $fieldWithValues );
-	// create a post for each array
-	foreach ( $fieldWithValues as $key => $value ) {
-		$success = true;
-		//create taxonomy by product category
-		$industry_id = null;
-		$term        = term_exists( $value['industry_category'], 'industry_category' );
-		if ( $term === 0 || $term === null ) {
-			$term        = wp_insert_term(
-				$value['industry_category'],
-				'industry_category',
-				[
-					'description' => $value['industry_category'],
-					'slug'        => $value['industry_category'],
-				]
-			);
-			$industry_id = $term['term_id'];
-		} else {
-			$industry_id = $term['term_id'];
-		}
-		//check if country taxonomy exist
-		$country_id = null;
-		$term       = term_exists( $value['country'], 'country' );
-		if ( $term === 0 || $term === null ) {
-			$term       = wp_insert_term(
-				$value['country'],
-				'country',
-				[
-					'description' => $value['country'],
-					'slug'        => $value['country'],
-				]
-			);
-			$country_id = $term['term_id'];
-		} else {
-			$country_id = $term['term_id'];
-		}
-		// create post and include taxonomy
-		$post_id = wp_insert_post(
-			[
-				'post_title'   => $value['exhibitor_name'],
-				'post_content' => $value['description'],
-				'post_status'  => 'publish',
-				'post_type'    => 'ciptadusa_directory',
-				'tax_input'    => [
-					'industry_category' => $industry_id,
-					'country'           => $country_id,
-				],
-			]
-		);
-		if ( $post_id === 0 ) {
-			$success = false;
-		}
-		// add custom_fields check if value is available $fields
-		foreach ( $value as $k => $v ) {
-			//compare with $fields
-			if ( in_array( $k, $fields ) ) {
-				update_post_meta( $post_id, $k, $v );
-			}
+	$excel_files = $_FILES['file']['tmp_name'];
+	if ( defined( 'CBXPHPSPREADSHEET_PLUGIN_NAME' ) && file_exists( CBXPHPSPREADSHEET_ROOT_PATH . 'lib/vendor/autoload.php' ) ) {
+		//Include PHPExcel
+		require_once( CBXPHPSPREADSHEET_ROOT_PATH . 'lib/vendor/autoload.php' );
+
+		// load excel file
+		$objPHPExcel = IOFactory::load( $excel_files );
+		// get first sheet
+		$sheet = $objPHPExcel->getSheet( 0 );
+		// set first row as header
+		$highestRow      = $sheet->getHighestRow();
+		$highestColumn   = $sheet->getHighestColumn();
+		$header          = $sheet->rangeToArray( 'A1:' . $highestColumn . '1', null, true, false );
+		$data            = $sheet->rangeToArray( 'A2:' . $highestColumn . $highestRow, null, true, false );
+		$fieldWithValues = [];
+		foreach ( $data as $key => $value ) {
+			// set key to lower case and space to underscore
+			$fieldWithValues[ $key ] = array_combine( array_map( function ( $item ) {
+				return str_replace( ' ', '_', $item );
+			}, array_map( 'strtolower', array_map( 'trim', $header[0] ) ) ), array_map( 'trim', $value ) );
 		}
 
+		// create a post for each array
+		foreach ( $fieldWithValues as $key => $value ) {
+			$success = true;
+			//create taxonomy by product category
+			$industry_id = null;
+			$term        = term_exists( $value['industry_category'], 'industry_category' );
+			if ( $term === 0 || $term === null ) {
+				$term        = wp_insert_term(
+					$value['industry_category'],
+					'industry_category',
+					[
+						'description' => $value['industry_category'],
+						'slug'        => $value['industry_category'],
+					]
+				);
+				$industry_id = $term['term_id'];
+			} else {
+				$industry_id = $term['term_id'];
+			}
+			//check if country taxonomy exist
+			$country_id = null;
+			$term       = term_exists( $value['country'], 'country' );
+			if ( $term === 0 || $term === null ) {
+				$term       = wp_insert_term(
+					$value['country'],
+					'country',
+					[
+						'description' => $value['country'],
+						'slug'        => $value['country'],
+					]
+				);
+				$country_id = $term['term_id'];
+			} else {
+				$country_id = $term['term_id'];
+			}
+			// create post and include taxonomy
+			$post_id = wp_insert_post(
+				[
+					'post_title'   => $value['exhibitor_name'],
+					'post_content' => $value['description'],
+					'post_status'  => 'publish',
+					'post_type'    => 'ciptadusa_directory',
+					'tax_input'    => [
+						'industry_category' => $industry_id,
+						'country'           => $country_id,
+					],
+				]
+			);
+			if ( $post_id === 0 ) {
+				$success = false;
+			}
+			// add custom_fields check if value is available $fields
+			foreach ( $value as $k => $v ) {
+				//compare with $fields
+				if ( in_array( $k, $fields ) ) {
+					update_post_meta( $post_id, $k, $v );
+				}
+			}
+
+		}
+	} else {
+		$success = false;
 	}
 }
 
