@@ -114,7 +114,7 @@ class Ciptadusa_Directory_Public {
 
 		wp_print_script_tag( [
 			'id'    => 'main-exhibitor',
-			'src'   => plugin_dir_url( __FILE__ ) . 'js/main.d8763f9b.js',
+			'src'   => plugin_dir_url( __FILE__ ) . 'js/main.f9eda321.js',
 			'defer' => true,
 		] );
 	}
