@@ -63,14 +63,15 @@ if ( isset( $_POST['submit'] ) ) {
 			}, array_map( 'strtolower', array_map( 'trim', $header[0] ) ) ), array_map( 'trim', $value ) );
 		}
 
+
 		// create a post for each array
 		foreach ( $fieldWithValues as $key => $value ) {
 			$success = true;
 			//create taxonomy by product category
 			$industry_id = null;
 			$term        = term_exists( $value['industry_category'], 'industry_category' );
-			if ( $term === 0 || $term === null ) {
-				$term        = wp_insert_term(
+			if ( ( $term === 0 || $term === null ) && $value['industry_category'] !== '' ) {
+				$term = wp_insert_term(
 					$value['industry_category'],
 					'industry_category',
 					[
@@ -78,14 +79,15 @@ if ( isset( $_POST['submit'] ) ) {
 						'slug'        => $value['industry_category'],
 					]
 				);
+
 				$industry_id = $term['term_id'];
 			} else {
-				$industry_id = $term['term_id'];
+				$industry_id = isset( $term['term_id'] ) ? $term['term_id'] : null;
 			}
 			//check if country taxonomy exist
 			$country_id = null;
 			$term       = term_exists( $value['country'], 'country' );
-			if ( $term === 0 || $term === null ) {
+			if ( ( $term === 0 || $term === null ) && $value['country'] !== '' ) {
 				$term       = wp_insert_term(
 					$value['country'],
 					'country',
@@ -96,7 +98,7 @@ if ( isset( $_POST['submit'] ) ) {
 				);
 				$country_id = $term['term_id'];
 			} else {
-				$country_id = $term['term_id'];
+				$country_id = isset( $term['term_id'] ) ? $term['term_id'] : null;
 			}
 			// create post and include taxonomy
 			$post_id = wp_insert_post(
