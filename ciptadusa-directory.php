@@ -16,7 +16,7 @@
  * Plugin Name:       Directory Listing by Cipta Dua Saudara
  * Plugin URI:        https://www.ciptadusa.com
  * Description:       Exhibition Directory Listing
- * Version:           1.4.5
+ * Version:           1.5.0
  * Author:            Indra Gunanda
  * Author URI:        https://github.com/igun997
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'CIPTADUSA_DIRECTORY_VERSION', '1.4.5' );
+define( 'CIPTADUSA_DIRECTORY_VERSION', '1.5.0' );
 
 /**
  * Define plugin for WordPress version
