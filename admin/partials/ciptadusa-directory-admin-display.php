@@ -66,6 +66,9 @@ if ( isset( $_POST['submit'] ) ) {
 
 		// create a post for each array
 		foreach ( $fieldWithValues as $key => $value ) {
+			if ( $value['exhibitor_name'] === '' || $value['exhibitor_name'] === null ) {
+				continue;
+			}
 			$success = true;
 			//create taxonomy by product category
 			$industry_id = null;

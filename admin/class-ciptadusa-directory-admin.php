@@ -108,17 +108,16 @@ class Ciptadusa_Directory_Admin {
 	 */
 
 	public function add_plugin_admin_menu() {
-		/*
-		 * Add a settings page for this plugin to the Settings menu.
-		 *
-		 * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
-		 *
-		 *        Administration Menus: http://codex.wordpress.org/Administration_Menus
-		 *
-		 */
 		add_options_page( 'Import Directory', 'Import Directory', 'manage_options', $this->plugin_name, array(
 			$this,
 			'display_plugin_setup_page'
+		) );
+	}
+
+	public function add_plugin_export_menu() {
+		add_options_page( 'Export Directory', 'Export Directory', 'manage_options', "ciptadusa-export", array(
+			$this,
+			'display_plugin_export_page'
 		) );
 	}
 
@@ -129,8 +128,11 @@ class Ciptadusa_Directory_Admin {
 	 */
 
 	public function display_plugin_setup_page() {
-		$fileTemplate = $this->get_template_import_file();
 		include_once( 'partials/ciptadusa-directory-admin-display.php' );
+	}
+
+	public function display_plugin_export_page() {
+		include_once( 'partials/ciptadusa-directory-export-display.php' );
 	}
 
 	/**
