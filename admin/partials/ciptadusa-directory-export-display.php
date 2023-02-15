@@ -17,7 +17,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 $current_path = $_SERVER['REQUEST_URI'];
 // current host
-$host   = $_SERVER['HTTP_HOST'];
+$host = $_SERVER['HTTP_HOST'];
+// full host with https
+$host   = 'https://' . $host;
 $fields = [
 	'is_premium',
 	'description',
