@@ -467,10 +467,30 @@ class Ciptadusa_Directory_Admin {
 	 * Register new orderby is_premium for post type ciptadusa_directory.
 	 */
 
-	public function init_orderby_is_premium( $params ) {
+	public function init_custom_params( $params ) {
 		$params['orderby']['enum'][] = 'is_premium';
 
 		return $params;
 	}
+
+	/**
+	 * Add new filter starts_with for post type ciptadusa_directory.
+	 */
+
+	public function init_custom_filters( $args, $request ) {
+		if ( isset( $request['search_first'] ) ) {
+			//find exhibitor_name starts with $request['starts_with']
+			$args['meta_query'] = array(
+				array(
+					'key'     => 'exhibitor_name',
+					'value'   => '^' . $request['search_first'],
+					'compare' => 'REGEXP',
+				),
+			);
+		}
+
+		return $args;
+	}
+
 
 }

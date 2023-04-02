@@ -169,8 +169,8 @@ class Ciptadusa_Directory {
 		// add rest api
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'add_custom_fields_to_rest_api' );
 		// add new order by
-		$this->loader->add_filter( 'rest_ciptadusa_directory_collection_params', $plugin_admin, 'init_orderby_is_premium' );
-
+		$this->loader->add_filter( 'rest_ciptadusa_directory_collection_params', $plugin_admin, 'init_custom_params' );
+		$this->loader->add_filter( 'rest_ciptadusa_directory_query', $plugin_admin, 'init_custom_filters', 10, 2 );
 	}
 
 	/**
