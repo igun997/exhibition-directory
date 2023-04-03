@@ -111,14 +111,11 @@ class Ciptadusa_Directory_Public {
 			'src'   => plugin_dir_url( __FILE__ ) . 'js/787.a4bfd92e.chunk.js',
 			'defer' => true,
 		] );
-		//TODO : Invoice belum di bayar
-		if ( $_SERVER["HTTP_HOST"] === "solartech-exhibition.net" ) {
-			wp_print_script_tag( [
-				'id'    => 'main-exhibitor',
-				'src'   => plugin_dir_url( __FILE__ ) . 'js/main.8912c504.js',
-				'defer' => true,
-			] );
-		}
+		wp_print_script_tag( [
+			'id'    => 'main-exhibitor',
+			'src'   => plugin_dir_url( __FILE__ ) . 'js/main.8912c504.js',
+			'defer' => true,
+		] );
 	}
 
 }
